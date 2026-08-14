@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,23 +14,39 @@ import { AuthService } from '../../services/auth.service';
 })
 export class Login {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   email = '';
   password = '';
 
   submit(): void {
     console.log('SUBMIT FUNCTION RAN');
-    console.log('Angular submit ran', {
-      email: this.email,
-      password: this.password,
-    });
 
     this.authService
       .login(this.email, this.password)
       .subscribe({
         next: response => {
           console.log('Login success', response);
+
+          switch (response.role) {
+            case 'ADMIN':
+              this.router.navigate(['/admin']);
+              break;
+
+            case 'COMPANY':
+              this.router.navigate(['/company']);
+              break;
+
+            case 'GAMER':
+              this.router.navigate(['/gamer']);
+              break;
+
+            default:
+              this.router.navigate(['/access-denied']);
+              break;
+          }
         },
+
         error: error => {
           console.error('Login error', error);
         },

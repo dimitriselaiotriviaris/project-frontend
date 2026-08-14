@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: white;
+}
+
+form {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  color: black;
+}
+
+form div {
+  margin-bottom: 16px;
+}
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: white;
+  color: black;
+}
+
+button {
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+p {
+  text-align: center;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+}
+ 
