@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface LoginResponse {
   id: number;
   username: string;
-  role: 'ADMIN' | 'TEACHER' | 'STUDENT';
+  role: 'ADMIN' | 'COMPANY' | 'GAMER';
 }
 
 export interface RegisterRequest {
