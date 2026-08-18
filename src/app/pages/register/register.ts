@@ -23,6 +23,12 @@ export class Register {
   roleId = 3;
 
   submit(): void {
+
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).{8,}$/;
+
+    if (!passwordPattern.test(this.password)) {
+      return;
+    }
     const request: RegisterRequest = {
       username: this.username,
       email: this.email,
