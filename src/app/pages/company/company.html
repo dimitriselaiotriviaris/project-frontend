@@ -1,4 +1,147 @@
-<section>
-  <h1 style="color:white!important" >Company Dashboard</h1>
-  <p>You are logged in as a company.</p>
+<section class="company-page">
+
+  <h1>Company Games</h1>
+
+  <div class="game-form">
+
+    <h2>
+      {{ editingId === null
+        ? 'Add Game'
+        : 'Edit Game' }}
+    </h2>
+
+    <form
+      (ngSubmit)="saveGame()"
+      #gameForm="ngForm"
+    >
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+
+            <td>
+              <input
+                type="text"
+                name="name"
+                [(ngModel)]="name"
+                required
+              />
+            </td>
+
+            <td>
+              <input
+                type="number"
+                name="price"
+                [(ngModel)]="price"
+                min="0"
+                required
+              />
+            </td>
+
+            <td>
+              <input
+                type="text"
+                name="description"
+                [(ngModel)]="description"
+              />
+            </td>
+
+            <td>
+              <button
+                type="submit"
+                [disabled]="gameForm.invalid"
+              >
+                {{ editingId === null
+                  ? 'Add'
+                  : 'Save' }}
+              </button>
+
+              @if (editingId !== null) {
+                <button
+                  type="button"
+                  (click)="cancelEdit()"
+                >
+                  Cancel
+                </button>
+              }
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </form>
+
+  </div>
+
+  <div class="games-list">
+
+    <h2>Your Company's Games</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (game of games; track game.id) {
+
+          <tr>
+            <td>{{ game.id }}</td>
+
+            <td>
+              {{ game.name }}
+            </td>
+
+            <td>
+              {{ game.price }}
+            </td>
+
+            <td>
+              {{ game.description }}
+            </td>
+
+            <td>
+              <button
+                type="button"
+                (click)="editGame(game)"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td colspan="5">
+              No games added yet.
+            </td>
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
 </section>
