@@ -8,6 +8,9 @@ import { AccessDenied } from './pages/access-denied/access-denied';
 import { Register } from './pages/register/register';
 import { Company } from './pages/company/company';
 import { Gamer } from './pages/gamer/gamer';
+import { roleGuard } from './guards/role.guard';
+import { loginGuard } from './guards/login.guard';
+import { registerGuard } from './guards/register.guard';
 
 export const routes: Routes = [
     {
@@ -16,19 +19,26 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: Login
+        component: Login,
+        canActivate: [loginGuard]
     },
     {
         path: 'admin',
-        component: Admin
+        component: Admin,
+        canActivate: [roleGuard],
+        data: { role: 'ADMIN' }
     },
     {
         path: 'company',
-        component: Company
+        component: Company,
+        canActivate: [roleGuard],
+        data: { role: 'COMPANY' }
     },
     {
         path: 'gamer',
-        component: Gamer
+        component: Gamer,
+        canActivate: [roleGuard],
+        data: { role: 'GAMER' }
     },
     {
         path: 'access-denied',
@@ -36,6 +46,7 @@ export const routes: Routes = [
     },
     {
         path: 'register',
-        component: Register
+        component: Register,
+        canActivate: [registerGuard]
     }
 ];

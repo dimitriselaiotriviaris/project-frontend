@@ -5,6 +5,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
 import {
   GamerService,
   GamerGame,
@@ -17,11 +20,10 @@ import {
   styleUrl: './gamer.css',
 })
 export class Gamer {
-  private readonly gamerService =
-    inject(GamerService);
-
-  private readonly cdr =
-    inject(ChangeDetectorRef);
+  private readonly gamerService = inject(GamerService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   games: GamerGame[] = [];
   library: GamerGame[] = [];
@@ -105,5 +107,20 @@ export class Gamer {
     return this.library.some(
       game => game.id === gameId
     );
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+
+      error: error => {
+        console.error(
+          'Logout failed',
+          error,
+        );
+      },
+    });
   }
 }

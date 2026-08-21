@@ -6,6 +6,7 @@ export interface LoginResponse {
   id: number;
   username: string;
   role: 'ADMIN' | 'COMPANY' | 'GAMER';
+  authenticated: boolean;
 }
 
 export interface RegisterRequest {

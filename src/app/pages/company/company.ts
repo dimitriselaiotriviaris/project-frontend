@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 import {
   CompanyService,
@@ -23,6 +25,8 @@ import {
 export class Company {
   private readonly companyService = inject(CompanyService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   games: Game[] = [];
 
@@ -130,5 +134,20 @@ export class Company {
     this.name = '';
     this.price = 0;
     this.description = '';
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+
+      error: error => {
+        console.error(
+          'Logout failed',
+          error,
+        );
+      },
+    });
   }
 }
