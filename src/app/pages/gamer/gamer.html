@@ -1,4 +1,152 @@
-<section>
-  <h1 style="color:white!important" >Gamer Dashboard</h1>
-  <p>You are logged in as a gamer.</p>
+<section class="gamer-page">
+
+  <h1>Games</h1>
+
+  <div class="games-section">
+
+    <h2>Available Games</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Company</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (game of games; track game.id) {
+
+          <tr class="game-row-available">
+
+            <td>
+              {{ game.name }}
+            </td>
+
+            <td>
+              {{ game.price }}
+            </td>
+
+            <td>
+              {{ game.description }}
+            </td>
+
+            <td>
+             {{ game.companyUsername}}
+            </td>
+
+            <td>
+
+              @if (isInLibrary(game.id)) {
+
+                <button
+                  class="exist"
+                  type="button"
+                  disabled
+                >
+                  Added
+                </button>
+
+              } @else {
+
+                <button
+                  type="button"
+                  (click)="addGame(game.id)"
+                >
+                  Add
+                </button>
+
+              }
+
+            </td>
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td colspan="5">
+              No games available.
+            </td>
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <div class="library-section">
+
+    <h2>My Games</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Company</th>
+          <th class="notAvailable">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (game of library; track game.id) {
+
+          <tr>
+
+            <td>
+              {{ game.name }}
+            </td>
+
+            <td>
+              {{ game.price }}
+            </td>
+
+            <td>
+              {{ game.description }}
+            </td>
+
+            <td>
+             {{ game.companyUsername}}
+            </td>
+
+            <td class="notAvailable">
+              <button
+                type="button"
+                (click)="removeGame(game.id)"
+              >
+                Remove
+              </button>
+            </td>
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td colspan="5">
+              Your library is empty.
+            </td>
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
 </section>
