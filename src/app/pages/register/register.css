@@ -57,3 +57,11 @@ a {
   color: #b00020;
   font-size: 0.9rem;
 }
+
+.registration-error {
+  margin-top: 12px;
+  padding: 10px;
+  color: #b00020;
+  background: #ffe5e5;
+  border-radius: 6px;
+}

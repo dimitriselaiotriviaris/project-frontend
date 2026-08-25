@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, RegisterRequest } from '../../services/auth.service';
@@ -15,14 +15,17 @@ import { AuthService, RegisterRequest } from '../../services/auth.service';
 export class Register {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   username = '';
   email = '';
   password = '';
 
   roleId = 3;
+  errorMessage = '';
 
   submit(): void {
+    this.errorMessage = '';
 
     const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).{8,}$/;
 
@@ -44,6 +47,14 @@ export class Register {
 
       error: error => {
         console.error('Registration error', error);
+        if (error.status === 409) {
+          this.errorMessage = error.error?.message ?? 'A user with this email already exists.';
+          this.changeDetectorRef.detectChanges();
+          return;
+        }
+
+        this.errorMessage = 'Registration failed. Please try again later.';
+        this.changeDetectorRef.detectChanges();
       },
     });
   }

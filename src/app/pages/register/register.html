@@ -68,6 +68,12 @@
   </button>
 </form>
 
+@if (errorMessage) {
+  <div class="registration-error">
+    {{ errorMessage }}
+  </div>
+}
+
 <p>
   Already registered?
   <a routerLink="/login">Login</a>
